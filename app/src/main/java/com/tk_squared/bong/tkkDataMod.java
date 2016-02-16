@@ -187,6 +187,7 @@ public class tkkDataMod {
             }
             catch(MalformedURLException e){
                 Log.i("MalformedURLException", e.toString());
+                this.bitmap = BitmapFactory.decodeResource(_activity.getApplicationContext().getResources(), R.drawable.ic_launcher);
                 //do nothing
             }
             catch (IOException e){
@@ -202,7 +203,9 @@ public class tkkDataMod {
         }
 
         protected void onPostExecute(Integer result){
-
+            if(this.bitmap == null) {
+                this.bitmap = BitmapFactory.decodeResource(_activity.getApplicationContext().getResources(), R.drawable.ic_launcher);
+            }
             instance.stations.add(dataSource.createStation(this.name, this.uri, this.bitmap, _activity));
 
             if(++completes >= tasks) {
