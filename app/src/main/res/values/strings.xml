@@ -18,5 +18,7 @@
     <string name="deep_url">android-app://com.tk_squared.bong/http/www.tk-squared.com/Bong</string>
     <string name="app_id_string">com.tk_squared.bong</string>
     <string name="app_icon_url">http://www.tk-squared.com/Bong/bong_icon.png</string>
+    <string name="stations_list_url">http://tk-squared.com/Bong/stations.json</string>
+    <string name="server_list_version">bong_server_version.txt</string>
     <string name="facebook_app_id">449962771863374</string>
 </resources>
