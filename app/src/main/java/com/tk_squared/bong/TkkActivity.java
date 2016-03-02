@@ -8,6 +8,7 @@ import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -15,9 +16,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -25,9 +28,7 @@ import com.facebook.FacebookSdk;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.millennialmedia.InlineAd;
-import com.millennialmedia.MMException;
-import com.millennialmedia.MMSDK;
+import com.smaato.soma.BannerView;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -96,10 +97,6 @@ public class TkkActivity extends AppCompatActivity
         fm = getFragmentManager();
         displaySplashFragment();
 
-        //Set up ad support
-        setMMedia();
-        setAdSpace();
-
         //Initialize Facebook
         setupFacebook();
 
@@ -110,6 +107,16 @@ public class TkkActivity extends AppCompatActivity
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
+        BannerView bv = new BannerView(this);
+        bv.setAutoReloadEnabled(true);
+        bv.setAutoReloadFrequency(15);
+
+        RelativeLayout mll = (RelativeLayout)findViewById(R.id.ad_container);
+        mll.addView(bv, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        bv.getAdSettings().setPublisherId(1100018452);
+        bv.getAdSettings().setAdspaceId(130084920);
+        bv.asyncLoadNewBanner();
     }
 
     @Override
@@ -179,7 +186,7 @@ public class TkkActivity extends AppCompatActivity
         super.onStart();
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
+         //See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
         Action viewAction = Action.newAction(
                 Action.TYPE_VIEW,
@@ -357,110 +364,4 @@ public class TkkActivity extends AppCompatActivity
     }
     //endregion
 
-    //region Description: Ad Support settings
-    private void setMMedia() {
-        MMSDK.initialize(this);
-        /*UserData userData = new UserData()
-                .setAge(<age>)
-                .setChildren(<children>)
-                .setCountry(<country>)
-                .setDma(<dma>)
-                .setDob(<dob>)
-                .setEducation(<education>)
-                .setEthnicity(<ethnicity>)
-                .setGender(<gender>)
-                .setIncome(<income>)
-                .setKeywords(<keywords>)
-                .setMarital(<marital>)
-                .setPolitics(<politics>)
-                .setPostalCode(<postal-code>)
-                .setState(<state>);
-        MMSDK.setUserData(userData);*/
-    }
-
-    private void setAdSpace() {
-
-        try {
-            // NOTE: The ad container argument passed to the createInstance call should be the
-            // view container that the ad content will be injected into.
-            InlineAd inlineAd = InlineAd.createInstance("220168",
-                    (LinearLayout) findViewById(R.id.ad_container));
-            final InlineAd.InlineAdMetadata inlineAdMetadata = new InlineAd.InlineAdMetadata().
-                    setAdSize(InlineAd.AdSize.BANNER);
-
-            inlineAd.request(inlineAdMetadata);
-
-            inlineAd.setListener(new InlineAd.InlineListener() {
-                @Override
-                public void onRequestSucceeded(InlineAd inlineAd) {
-
-                    if (inlineAd != null) {
-                        // set a refresh rate of 30 seconds that will be applied after the first request
-                        inlineAd.setRefreshInterval(30000);
-
-                        // The InlineAdMetadata instance is used to pass additional metadata to the server to
-                        // improve ad selection
-                        final InlineAd.InlineAdMetadata inlineAdMetadata = new InlineAd.InlineAdMetadata().
-                                setAdSize(InlineAd.AdSize.BANNER);
-
-                    }
-                    Log.i(TAG, "Inline Ad loaded.");
-                }
-
-
-                @Override
-                public void onRequestFailed(InlineAd inlineAd, InlineAd.InlineErrorStatus errorStatus) {
-
-                    Log.i(TAG, errorStatus.toString());
-                }
-
-
-                @Override
-                public void onClicked(InlineAd inlineAd) {
-
-                    Log.i(TAG, "Inline Ad clicked.");
-                }
-
-
-                @Override
-                public void onResize(InlineAd inlineAd, int width, int height) {
-
-                    Log.i(TAG, "Inline Ad starting resize.");
-                }
-
-
-                @Override
-                public void onResized(InlineAd inlineAd, int width, int height, boolean toOriginalSize) {
-
-                    Log.i(TAG, "Inline Ad resized.");
-                }
-
-
-                @Override
-                public void onExpanded(InlineAd inlineAd) {
-
-                    Log.i(TAG, "Inline Ad expanded.");
-                }
-
-
-                @Override
-                public void onCollapsed(InlineAd inlineAd) {
-
-                    Log.i(TAG, "Inline Ad collapsed.");
-                }
-
-
-                @Override
-                public void onAdLeftApplication(InlineAd inlineAd) {
-
-                    Log.i(TAG, "Inline Ad left application.");
-                }
-            });
-
-        } catch (MMException e) {
-            Log.e(TAG, "Error creating inline ad", e);
-            // abort loading ad
-        }
-    }
-    //endregion
 }

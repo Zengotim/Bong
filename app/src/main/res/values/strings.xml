@@ -21,4 +21,6 @@
     <string name="stations_list_url">http://tk-squared.com/Bong/stations.json</string>
     <string name="server_list_version">bong_server_version.txt</string>
     <string name="facebook_app_id">449962771863374</string>
+    <string name="smaato_pub_id">1100018452</string>
+    <string name="smaato_ad_id">130084920</string>
 </resources>

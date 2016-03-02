@@ -15,3 +15,15 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-verbose
+
+-printconfiguration config.txt
+-printmapping map.txt
+-printseeds seeds.txt
+-printusage unused.txt
+
+-dontobfuscate
+-dontoptimize
