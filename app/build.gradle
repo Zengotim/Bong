@@ -7,8 +7,8 @@ android {
         applicationId "com.tk_squared.bong"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 2
-        versionName '1.1'
+        versionCode 3
+        versionName '1.2'
         multiDexEnabled true
     }
     buildTypes {
@@ -31,18 +31,20 @@ android {
             dx.additionalParameters += "main-dex-list=$projectDir/<filename>".toString()
         }
     }
+    productFlavors {
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile ('com.android.support:appcompat-v7:23.2.0')
-    compile ('com.android.support:design:23.2.0')
-    compile ('com.google.android.gms:play-services:8.3.0')
-    compile ('com.google.android.gms:play-services-ads:8.3.0')
-    compile ('com.google.android.gms:play-services-identity:8.3.0')
-    compile ('com.google.android.gms:play-services-gcm:8.3.0')
-    compile ('com.facebook.android:facebook-android-sdk:4.+')
-    compile ('com.android.support:support-v4:23.2.0')
+    compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'com.android.support:design:23.2.0'
+    compile 'com.google.android.gms:play-services:8.3.0'
+    compile 'com.google.android.gms:play-services-ads:8.3.0'
+    compile 'com.google.android.gms:play-services-identity:8.3.0'
+    compile 'com.google.android.gms:play-services-gcm:8.3.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.+'
+    compile 'com.android.support:support-v4:23.2.0'
     compile project(':SOMAAndroidSDK5.0.3')
 }
